@@ -26,7 +26,7 @@ async function run() {
       app.get('/services', async (req, res) => {
         const cursor = servicesCollection.find({});
         const services = await cursor.toArray();
-        res.send(services);
+        res.json(services);
       })
 
       // GET API
@@ -51,8 +51,6 @@ async function run() {
         app.post('/services', async(req, res) => {
           const service = req.body;
           console.log(service);
-          
-
           const result = await servicesCollection.insertOne(service);
           console.log(result);
           res.send(result)
@@ -64,6 +62,10 @@ async function run() {
     }
   }
   run().catch(console.dir);
+
+app.get('/hello', (req, res) => {
+  res.send('Updated hello');
+})
 
 app.get('/', (req, res) => {
     res.send('Running Ginius Car Mechanics')
